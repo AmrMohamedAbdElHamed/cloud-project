@@ -7,6 +7,8 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_PASSWORD: 20201700558
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
     volumes:
       - ./postgres-init:/docker-entrypoint-initdb.d
     networks:
@@ -16,7 +18,8 @@ services:
     build: .
     container_name: reg-log-container
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     ports:
       - "3000:3000"
     networks:
@@ -28,7 +31,8 @@ services:
     build: ../catalog
     container_name: catalog-cart-container
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     ports:
       - "3001:3001"
     networks:
