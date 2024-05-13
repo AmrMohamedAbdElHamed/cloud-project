@@ -1,0 +1,45 @@
+#access docker container
+docker exec -it <container_id_or_name> /bin/bash
+
+#go to database "mysql"
+mysql -u <user_name> -p
+
+#create database 
+CREATE DATABASE IF NOT EXISTS projectdb;
+
+#use database
+use projectdb
+
+#query in database
+CREATE TABLE user_ (
+    userID INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    userEmail VARCHAR(100) NOT NULL,
+    userPassword VARCHAR(50) NOT NULL,
+    userAddress VARCHAR(255) NOT NULL,
+    userPhone VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE product (
+    productID INT PRIMARY KEY AUTO_INCREMENT,
+    productName VARCHAR(100) NOT NULL,
+    productNum INT NOT NULL,
+    productImg VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE cart (
+    cartID INT PRIMARY KEY AUTO_INCREMENT,
+    userID INT NOT NULL,
+    productID INT NOT NULL,
+    FOREIGN KEY (userID) REFERENCES user_(userID),
+    FOREIGN KEY (productID) REFERENCES product(productID)
+);
+
+CREATE TABLE user_product (
+    userID INT,
+    productID INT,
+    FOREIGN KEY (userID) REFERENCES user_(userID),
+    FOREIGN KEY (productID) REFERENCES product(productID)
+);
+
+

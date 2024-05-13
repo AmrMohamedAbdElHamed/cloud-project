@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Catalog Website</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="container">
+
+            <h1>Catalog Website</h1>
+
+            <nav>
+
+                <ul>
+
+                    <li><a href="#">Home</a></li>
+
+                    <li><a href="#">Products</a></li>
+
+                    <li><a href="#">Contact</a></li>
+
+                </ul>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+    <main>
+
+        <div class="container">
+
+            <section class="product">
+
+                <form action="/cart" method="post">
+
+                    <img src="product1.jpg" alt="Product 1">
+
+                    <div class="product-details">
+
+                        <h2>Product 1</h2>
+
+                        <p>Description of Product 1 goes here.</p>
+
+                        <p>Price: $X.XX</p>
+
+                        <!-- Form for adding product 1 to the cart -->
+
+                        <input type="hidden" name="productId" value="1">
+
+                        <button type="submit">Add to Cart</button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+            <!-- Repeat the above section for other products -->
+
+        </div>
+
+    </main>
+
+    <footer>
+
+        <div class="container">
+
+            <p>&copy; 2024 Catalog Website. All rights reserved.</p>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

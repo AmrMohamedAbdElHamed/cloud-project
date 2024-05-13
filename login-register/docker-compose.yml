@@ -1,0 +1,40 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-container
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: 20201700558
+    volumes:
+      - ./postgres-init:/docker-entrypoint-initdb.d
+    networks:
+      - mynetwork
+
+  reg-log:
+    build: .
+    container_name: reg-log-container
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    networks:
+      - mynetwork
+    volumes:
+      - ./public:/register-login/public
+  
+  catalog-cart:
+    build: ../catalog
+    container_name: catalog-cart-container
+    depends_on:
+      - postgres
+    ports:
+      - "3001:3001"
+    networks:
+      - mynetwork
+    volumes:
+      - ../catalog/public:/catalog/public
+
+networks:
+  mynetwork:
