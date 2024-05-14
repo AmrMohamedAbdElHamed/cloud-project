@@ -6,7 +6,6 @@ const path = require('path');
 const app = express();
 const port = 3001;
 
-
 // Create a PostgreSQL connection
 const client = new Client({
     user: 'postgres',
@@ -24,19 +23,16 @@ client.connect()
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// Define route to get all products
-app.get('/products', (req, res) => {
-    client.query('SELECT * FROM product')
-        .then(results => res.json(results.rows))
-        .catch(error => {
-            console.error('Error executing query:', error.stack);
-            res.status(500).json({ error: 'Internal Server Error' });
-        });
+app.set('view engine', 'ejs');
+// Define route to render HTML page with product data
+app.get('/', async (req, res) => {
+    try {
+        const products = await client.query('SELECT * FROM product');
+        res.sendFile(path.join(__dirname, 'public', 'index.html'), { products: products.rows });
+    } catch (error) {
+        console.error('Error fetching products:', error.stack);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 // Define route to add a product to the cart

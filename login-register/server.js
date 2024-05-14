@@ -60,7 +60,8 @@ app.post('/login', (req, res) => {
     if (results.rows.length === 0) {
       res.status(401).json({ error: 'Invalid username or password' });
     } else {
-      res.status(200).json({ message: 'User authenticated successfully' });
+      // Redirect to the catalog page upon successful authentication
+      res.redirect('http://localhost:3001');
     }
   });
 });

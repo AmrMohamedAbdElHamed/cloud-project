@@ -42,4 +42,8 @@ CREATE TABLE user_product (
     FOREIGN KEY (productID) REFERENCES product(productID)
 );
 
+#package.json creation
+npm init
 
+#install depandance
+npm install express pg

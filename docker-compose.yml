@@ -15,7 +15,7 @@ services:
       - mynetwork
 
   reg-log:
-    build: .
+    build: ./login-register
     container_name: reg-log-container
     depends_on:
       postgres:
@@ -25,11 +25,11 @@ services:
     networks:
       - mynetwork
     volumes:
-      - ./public:/register-login/public
+      - ./login-register/public:/register-login/public
   
-  catalog-cart:
-    build: ../catalog
-    container_name: catalog-cart-container
+  catalog:
+    build: ./catalog
+    container_name: catalog-container
     depends_on:
       postgres:
         condition: service_healthy
@@ -38,7 +38,20 @@ services:
     networks:
       - mynetwork
     volumes:
-      - ../catalog/public:/catalog/public
+      - ./catalog/public:/catalog/public
+
+  cart:
+    build: ./cart
+    container_name: cart-container
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3002:3002"
+    networks:
+      - mynetwork
+    volumes:
+      - ./cart/public:/cart/public
 
 networks:
   mynetwork:
