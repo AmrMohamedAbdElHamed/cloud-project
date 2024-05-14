@@ -25,10 +25,11 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 // Define route to render HTML page with product data
-app.get('/', async (req, res) => {
+app.get('/:Catalog', async (req, res) => {
     try {
         const products = await client.query('SELECT * FROM product');
-        res.sendFile(path.join(__dirname, 'public', 'index.html'), { products: products.rows });
+        console.log(products);
+        res.render('index',{ products: products.rows });
     } catch (error) {
         console.error('Error fetching products:', error.stack);
         res.status(500).json({ error: 'Internal Server Error' });

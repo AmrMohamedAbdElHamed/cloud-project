@@ -8,6 +8,7 @@ ADD server.js .
 ADD package.json .
 ADD package-lock.json .
 ADD public ./public
+ADD views ./views
 
 # Install postgres client tool using npm
 RUN npm install pg

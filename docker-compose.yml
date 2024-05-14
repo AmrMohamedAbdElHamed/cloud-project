@@ -39,6 +39,7 @@ services:
       - mynetwork
     volumes:
       - ./catalog/public:/catalog/public
+      - ./catalog/views:/catalog/views
 
   cart:
     build: ./cart

@@ -61,7 +61,7 @@ app.post('/login', (req, res) => {
       res.status(401).json({ error: 'Invalid username or password' });
     } else {
       // Redirect to the catalog page upon successful authentication
-      res.redirect('http://localhost:3001');
+      res.redirect('http://localhost:3001/Catalog');
     }
   });
 });
