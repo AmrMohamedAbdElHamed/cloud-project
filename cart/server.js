@@ -61,7 +61,7 @@ app.get('/cart', async (req, res) => {
 });
 
 // Checkout route
-app.get('/checkout', async (req, res) => {
+app.post('/checkout', async (req, res) => {
   const userId = 1; // Assuming user ID is hardcoded for now
 
   try {
@@ -81,7 +81,7 @@ app.get('/checkout', async (req, res) => {
 });
 
 // Checkout route
-app.post('/catalog', (req, res) => {
+app.get('/catalog', (req, res) => {
   try {
     res.redirect('http://localhost:3001/Catalog');
     } catch (error) {

@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 // Define route to render HTML page with product data
-app.get('/:Catalog', async (req, res) => {
+app.get('/Catalog', async (req, res) => {
     try {
         const products = await client.query('SELECT * FROM product');
         console.log(products);
@@ -53,7 +53,7 @@ app.post('/cart', (req, res) => {
     });
 });
 
-app.post('/gotocart', (req, res) => {
+app.get('/gotocart', (req, res) => {
     res.redirect('http://localhost:3002/cart');
 });
 // Start the server
