@@ -61,7 +61,7 @@ app.get('/cart', async (req, res) => {
 });
 
 // Checkout route
-app.post('/checkout', async (req, res) => {
+app.get('/checkout', async (req, res) => {
   const userId = 1; // Assuming user ID is hardcoded for now
 
   try {
