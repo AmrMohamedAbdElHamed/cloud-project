@@ -53,6 +53,7 @@ services:
       - mynetwork
     volumes:
       - ./cart/public:/cart/public
-
+      - ./cart/views:/cart/views
+      
 networks:
   mynetwork:

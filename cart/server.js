@@ -28,17 +28,41 @@ app.use(bodyParser.json());
 // Serving static files (assuming they're in a directory named 'public')
 app.use(express.static('public'));
 
+app.set('view engine', 'ejs');
 
-// Example route to add a product to the cart
-app.post('/cart', (req, res) => {
-  const { userId, productId } = req.body;
 
-  client.query('INSERT INTO cart (userId, productId) VALUES ($1, $2)', [1, 1])
-      .then(() => res.json({ message: 'Product added to cart successfully' }))
-      .catch(error => {
-          console.error('Error executing query:', error.stack);
-          res.status(500).json({ error: 'Internal Server Error' });
-      });
+// // Example route to add a product to the cart
+// app.post('/cart', (req, res) => {
+//   const { userId, productId } = req.body;
+
+//   client.query('INSERT INTO cart (userId, productId) VALUES ($1, $2)', [1, 1])
+//       .then(() => res.json({ message: 'Product added to cart successfully' }))
+//       .catch(error => {
+//           console.error('Error executing query:', error.stack);
+//           res.status(500).json({ error: 'Internal Server Error' });
+//       });
+// });
+app.get('/:C', async (req, res) => {
+  // const userId = req.params.C; // Assuming user ID is passed as a parameter in the URL
+  const userId = 1;
+  try {
+      // Query to fetch products from the cart for a specific user
+      const query = `
+          SELECT product.productID, product.productName, product.productNum, product.productImg
+          FROM product
+          INNER JOIN cart ON product.productID = cart.productID
+          WHERE cart.userID = $1;
+      `;
+      
+      // Execute the query
+      const { rows } = await client.query(query, [userId]);
+      console.log(rows);
+      // Send the products data to the client
+      res.render('index', { products: rows });
+  } catch (error) {
+      console.error('Error fetching products:', error.stack);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 // Start the server
