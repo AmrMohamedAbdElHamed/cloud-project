@@ -4,6 +4,7 @@ const { Client } = require('pg');
 
 const app = express();
 const port = process.env.PORT || 3002;
+let user_id
 
 // PostgreSQL database configuration
 const client = new Client({
@@ -30,16 +31,21 @@ function getTotal(products) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Serving static files (assuming they're in a directory named 'public')
+// Serving static files
 app.use(express.static('public'));
 
 app.set('view engine', 'ejs');
 
-
+app.get('/checkout_to_cart', (req, res) =>{
+  try {
+    res.redirect(`/cart?userId=${user_id}`);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 app.get('/cart', async (req, res) => {
-  // const userId = req.params.C; // Assuming user ID is passed as a parameter in the URL
-  const userId = 1;
+  user_id = req.query.userId;
   try {
       // Query to fetch products from the cart for a specific user
       const query = `
@@ -50,8 +56,7 @@ app.get('/cart', async (req, res) => {
       `;
       
       // Execute the query
-      const { rows } = await client.query(query, [userId]);
-      console.log(rows);
+      const { rows } = await client.query(query, [user_id]);
       // Send the products data to the client
       res.render('index', { products: rows ,getTotal: getTotal});
   } catch (error) {
@@ -62,28 +67,36 @@ app.get('/cart', async (req, res) => {
 
 // Checkout route
 app.post('/checkout', async (req, res) => {
-  const userId = 1; // Assuming user ID is hardcoded for now
-
   try {
       // Delete rows from the cart table for the specific user ID
       const deleteQuery = `
           DELETE FROM cart
           WHERE userID = $1;
       `;
-      await client.query(deleteQuery, [userId]);
+      await client.query(deleteQuery, [user_id]);
 
-      // Render the checkout success page with a success message and receipt
-      res.render('checkout-success', { message: 'Checkout completed successfully'});
+      res.redirect(`/checkout-success?userId=${user_id}`);
   } catch (error) {
       console.error('Error during checkout:', error.stack);
       res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
+app.get('/checkout-success', async (req, res) => {
+  user_id = req.query.userId;
+  try {
+    // Here you can fetch additional details about the user if needed
+    res.render('checkout-success', { message: 'Checkout completed successfully', userId: user_id });
+  } catch (error) {
+    console.error('Error displaying checkout success:', error.stack);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 // Checkout route
 app.get('/catalog', (req, res) => {
   try {
-    res.redirect('http://localhost:3001/Catalog');
+    res.redirect(`http://localhost:3001/Catalog?userId=${user_id}`);
     } catch (error) {
       console.error('Error going to Catalog:', error.stack);
       res.status(500).json({ error: 'Internal Server Error' });

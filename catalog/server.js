@@ -41,8 +41,6 @@ app.get('/Catalog', async (req, res) => {
 // Define route to add a product to the cart
 app.post('/cart', (req, res) => {
     const { productId } = req.body;
-    // Perform validation if needed
-    console.log(user_id,"body",req.body);
     // Add the product to the cart
     client.query('INSERT INTO cart (userId, productId) VALUES ($1, $2)', [user_id, productId], (error, result) => {
         if (error) {
@@ -56,7 +54,7 @@ app.post('/cart', (req, res) => {
 });
 
 app.get('/gotocart', (req, res) => {
-    res.redirect('http://localhost:3002/cart');
+    res.redirect(`http://localhost:3002/cart?userId=${user_id}`);
 });
 // Start the server
 app.listen(port, () => {
