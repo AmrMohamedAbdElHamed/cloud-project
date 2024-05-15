@@ -47,12 +47,14 @@ app.post('/cart', (req, res) => {
             console.error('Error executing query:', error.stack);
             res.status(500).json({ error: 'Internal Server Error' });
         } else {
-            res.redirect('http://localhost:3002/cart');
+            //res.redirect('http://localhost:3002/cart');
         }
     });
 });
 
-
+app.post('/gotocart', (req, res) => {
+    res.redirect('http://localhost:3002/cart');
+});
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
