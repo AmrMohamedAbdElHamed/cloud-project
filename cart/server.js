@@ -36,18 +36,8 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 
-// // Example route to add a product to the cart
-// app.post('/cart', (req, res) => {
-//   const { userId, productId } = req.body;
 
-//   client.query('INSERT INTO cart (userId, productId) VALUES ($1, $2)', [1, 1])
-//       .then(() => res.json({ message: 'Product added to cart successfully' }))
-//       .catch(error => {
-//           console.error('Error executing query:', error.stack);
-//           res.status(500).json({ error: 'Internal Server Error' });
-//       });
-// });
-app.get('/:cart', async (req, res) => {
+app.get('/cart', async (req, res) => {
   // const userId = req.params.C; // Assuming user ID is passed as a parameter in the URL
   const userId = 1;
   try {
@@ -70,6 +60,35 @@ app.get('/:cart', async (req, res) => {
   }
 });
 
+// Checkout route
+app.post('/checkout', async (req, res) => {
+  const userId = 1; // Assuming user ID is hardcoded for now
+
+  try {
+      // Delete rows from the cart table for the specific user ID
+      const deleteQuery = `
+          DELETE FROM cart
+          WHERE userID = $1;
+      `;
+      await client.query(deleteQuery, [userId]);
+
+      // Render the checkout success page with a success message and receipt
+      res.render('checkout-success', { message: 'Checkout completed successfully'});
+  } catch (error) {
+      console.error('Error during checkout:', error.stack);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Checkout route
+app.post('/catalog', (req, res) => {
+  try {
+    res.redirect('http://localhost:3001/Catalog');
+    } catch (error) {
+      console.error('Error going to Catalog:', error.stack);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
