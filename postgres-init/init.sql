@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS user_ (
 CREATE TABLE IF NOT EXISTS product (
     productID SERIAL PRIMARY KEY,
     productName VARCHAR(100) NOT NULL,
+    productPrice INT NOT NULL,
     productNum INT NOT NULL,
     productImg VARCHAR(255) NOT NULL
 );
@@ -41,10 +42,10 @@ CREATE TABLE IF NOT EXISTS user_product (
 -- Insert data into the 'user_' table
 INSERT INTO user_ (username, userEmail, userPassword, userAddress, userPhone)
 VALUES ('John Doe', 'john@example.com', 'password123', '123 Main St, City, Country', '123456789');
-INSERT INTO product (productName, productNum, productImg)
-VALUES ('Product 1', 10, 'product1.jpg'),
-       ('Product 2', 20, 'product2.jpg'),
-       ('Product 3', 15, 'product3.jpg');
+INSERT INTO product (productName, productPrice,productNum, productImg)
+VALUES ('Galaxy S24', 43553,10, 'Galaxy_S24.avif'),
+       ('Galaxy S24+',49373, 10,'Galaxy_S24_plus.avif'),
+       ('Galaxy S24 Ultra', 64599,10, 'Galaxy_S24_Ultra.avif');
 INSERT INTO cart (userID, productID)
 VALUES (1, 1),
        (1, 2);
