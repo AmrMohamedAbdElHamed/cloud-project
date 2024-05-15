@@ -42,13 +42,16 @@ app.post('/cart', (req, res) => {
     // Perform validation if needed
 
     // Add the product to the cart
-    client.query('INSERT INTO cart (userId, productId) VALUES ($1, $2)', [1, 1])
-        .then(() => res.json({ message: 'Product added to cart successfully' }))
-        .catch(error => {
+    client.query('INSERT INTO cart (userId, productId) VALUES ($1, $2)', [1, 1], (error, result) => {
+        if (error) {
             console.error('Error executing query:', error.stack);
             res.status(500).json({ error: 'Internal Server Error' });
-        });
+        } else {
+            res.redirect('http://localhost:3002/cart');
+        }
+    });
 });
+
 
 // Start the server
 app.listen(port, () => {
