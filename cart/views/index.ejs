@@ -26,11 +26,11 @@
                 <tbody>
                     <% products.forEach(product => { %>
                         <tr>
-                            <td><%= product.productName %></td>
-                            <td><%= product.productImg %></td>
-                            <td>$<%= product.productNum %></td>
+                            <td><%= product.productname %></td>
+                            <td><img src="../product1.jpg" alt="<%= product.productname %>"></td>
+                            <td>$<%= product.productnum %></td>
                             <td>10</td>
-                            <td>$50</td>
+                            <td>$<%= product.productnum * 10 %></td>
                         </tr>
                     <% }); %>
                 </tbody>
@@ -42,12 +42,5 @@
         </div>
         </form>
     </div>
-
-    <!-- JavaScript function to calculate total -->
-    <script>
-        function getTotal(products) {
-            return products.reduce((total, product) => total + (product.price * product.quantity), 0);
-        }
-    </script>
 </body>
 </html>
