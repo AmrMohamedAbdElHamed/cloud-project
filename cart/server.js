@@ -47,7 +47,7 @@ app.set('view engine', 'ejs');
 //           res.status(500).json({ error: 'Internal Server Error' });
 //       });
 // });
-app.get('/:C', async (req, res) => {
+app.get('/:cart', async (req, res) => {
   // const userId = req.params.C; // Assuming user ID is passed as a parameter in the URL
   const userId = 1;
   try {
