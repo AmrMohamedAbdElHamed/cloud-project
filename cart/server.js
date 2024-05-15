@@ -21,6 +21,11 @@ client.connect((err) => {
   }
   console.log('Connected to PostgreSQL database');
 });
+// functions
+function getTotal(products) {
+  return products.reduce((total, product) => total + (product.productnum * 10), 0);
+}
+//--------------------------
 // Middleware to parse JSON bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -58,7 +63,7 @@ app.get('/:C', async (req, res) => {
       const { rows } = await client.query(query, [userId]);
       console.log(rows);
       // Send the products data to the client
-      res.render('index', { products: rows });
+      res.render('index', { products: rows ,getTotal: getTotal});
   } catch (error) {
       console.error('Error fetching products:', error.stack);
       res.status(500).json({ error: 'Internal Server Error' });
