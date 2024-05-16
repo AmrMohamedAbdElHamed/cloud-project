@@ -13,13 +13,17 @@ spec:
         app: catalog
     spec:
       containers:
-        - name: catalog
-          image: <your-catalog-image>
+        - name: catalog-container
+          image: cloud-project-catalog
           ports:
             - containerPort: 3001
-          dependsOn:
-            - name: postgres
-              condition: service_healthy
+          readinessProbe:
+            httpGet:
+              path: /healthz   # Adjust this path to your application's health check endpoint
+              port: 3001      # Port on which your application listens for health checks
+          volumeMounts:
+            - name: catalog-volume
+              mountPath: /catalog  # Adjust the mount path as needed
       volumes:
         - name: catalog-volume
           emptyDir: {}

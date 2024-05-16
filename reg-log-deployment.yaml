@@ -13,13 +13,17 @@ spec:
         app: reg-log
     spec:
       containers:
-        - name: reg-log
-          image: <your-reg-log-image>
+        - name: reg-log-container
+          image: cloud-project-reg-log
           ports:
             - containerPort: 3000
-          dependsOn:
-            - name: postgres
-              condition: service_healthy
+          readinessProbe:
+            httpGet:
+              path: /healthz   
+              port: 3000      
+          volumeMounts:
+            - name: reg-log-volume
+              mountPath: /reg-log  
       volumes:
         - name: reg-log-volume
           emptyDir: {}

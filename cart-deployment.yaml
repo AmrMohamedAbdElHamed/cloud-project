@@ -13,13 +13,10 @@ spec:
         app: cart
     spec:
       containers:
-        - name: cart
-          image: <your-cart-image>
+        - name: cart-container
+          image: cloud-project-cart
           ports:
             - containerPort: 3002
-          dependsOn:
-            - name: postgres
-              condition: service_healthy
       volumes:
         - name: cart-volume
           emptyDir: {}
