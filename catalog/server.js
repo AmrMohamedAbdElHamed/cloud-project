@@ -29,9 +29,9 @@ app.get('/Catalog', async (req, res) => {
     user_id = req.query.userId;
     
     try {
-        const products = await client.query('SELECT * FROM product');
-        console.log(products);
-        res.render('index', { products: products.rows, userId: user_id }); // Pass userId to the view
+        const products = await client.query('SELECT * FROM product WHERE productNum > 0');
+
+        res.render('index', { products: products.rows, userId: user_id });
     } catch (error) {
         console.error('Error fetching products:', error.stack);
         res.status(500).json({ error: 'Internal Server Error' });

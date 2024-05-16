@@ -46,6 +46,7 @@ app.post('/register', (req, res) => {
   });
 });
 
+
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   const query = 'SELECT * FROM user_ WHERE username = $1 AND userPassword = $2';
@@ -58,11 +59,11 @@ app.post('/login', (req, res) => {
     }
 
     if (results.rows.length === 0) {
-      res.status(401).json({ error: 'Invalid username or password' });
+      res.json({ success: false });
+      // res.status(401).json({ error: 'Invalid username or password' });
     } else {
-      console.log(results);
       // Redirect to the catalog page upon successful authentication
-      res.redirect(`http://localhost:3001/Catalog?userId=${results.rows[0].userid}`);
+      res.json({ success: true ,id: results.rows[0].userid});
     }
   });
 });

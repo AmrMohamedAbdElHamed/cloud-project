@@ -70,13 +70,13 @@ app.post('/checkout', async (req, res) => {
   try {
     // Fetch all products in the user's cart
     const cartQuery = `
-    SELECT productID, quantity FROM cart
+    SELECT productID FROM cart
     WHERE userID = $1;
     `;
+
     const cartResult = await client.query(cartQuery, [user_id]);
     const cartItems = cartResult.rows;
 
-    // Reduce productNum by the quantity in each cart item
     for (const item of cartItems) {
         const updateProduct = `
             UPDATE product SET productNum = productNum - $1

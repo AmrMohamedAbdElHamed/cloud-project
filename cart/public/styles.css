@@ -68,3 +68,8 @@ th {
 .cart-btn:hover {
     background-color: #555;
 }
+
+img{
+    width: 250px;
+    height: 220px;
+}
