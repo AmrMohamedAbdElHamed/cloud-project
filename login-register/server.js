@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Client } = require('pg');
-const route = require('./route');
+
 
 const app = express();
 const port = 3000;
