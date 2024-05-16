@@ -24,23 +24,25 @@
         <div class="container">
             <h2>Catalog</h2>
             <div class="product-list">
-                <% products.forEach(product=> { %>
+                
                     <section class="product">
-                        <form action="/cart" method="post">
+                        <form action="/cart" method="post" class="catlog-items">
+                            <% products.forEach(product=> { %>
                             <img src="<%= product.productimg %>" alt="<%= product.name %>">
                             <div class="product-details">
                                 <h2>
                                     <%= product.productname %>
                                 </h2>
-                                <p> DON'T BUY FROM HERE </p>
-                                <p>Price: $<%= product.productnum %>
+                                <p>Price: $<%= product.productprice %></p>
+                                <p>Stock: $<%= product.productnum %>
                                 </p>
                                 <input type="hidden" name="productId" value="<%= product.productid %>">
                                 <button type="submit">Add to Cart</button>
                             </div>
+                            <% }); %>
                         </form>
                     </section
-                    <% }); %>
+                    
             </div>
         </div>
     </main>
