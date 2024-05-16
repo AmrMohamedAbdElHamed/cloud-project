@@ -19,18 +19,14 @@
                         <th>Product</th>
                         <th>Image</th>
                         <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% products.forEach(product => { %>
                         <tr>
                             <td><%= product.productname %></td>
-                            <td><img src="./images/product1.jpg" alt="HERE"></td>
-                            <td>$<%= product.productnum %></td>
-                            <td>10</td>
-                            <td>$<%= product.productnum * 10 %></td>
+                            <td><img src="<%= product.productimg %>" alt="<%= product.name %>"></td>
+                            <td>$<%= product.productprice %></td>
                         </tr>
                     <% }); %>
                 </tbody>
@@ -38,7 +34,9 @@
             <div class="total">
                 Total: <span>$<%= getTotal(products) %></span>
             </div>
+            <% if (products.length > 0) { %>
             <button class="checkout-btn">Checkout</button>
+            <% } %>
         </div>
         </form>
         <form action="/catalog" method="get">

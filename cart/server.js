@@ -24,7 +24,7 @@ client.connect((err) => {
 });
 // functions
 function getTotal(products) {
-  return products.reduce((total, product) => total + (product.productnum * 10), 0);
+  return products.reduce((total, product) => total + product.productprice, 0);
 }
 //--------------------------
 // Middleware to parse JSON bodies
@@ -49,7 +49,7 @@ app.get('/cart', async (req, res) => {
   try {
       // Query to fetch products from the cart for a specific user
       const query = `
-          SELECT product.productID, product.productName, product.productNum, product.productImg
+          SELECT product.productID, product.productName, productPrice, product.productNum, product.productImg
           FROM product
           INNER JOIN cart ON product.productID = cart.productID
           WHERE cart.userID = $1;
@@ -68,6 +68,22 @@ app.get('/cart', async (req, res) => {
 // Checkout route
 app.post('/checkout', async (req, res) => {
   try {
+    // Fetch all products in the user's cart
+    const cartQuery = `
+    SELECT productID, quantity FROM cart
+    WHERE userID = $1;
+    `;
+    const cartResult = await client.query(cartQuery, [user_id]);
+    const cartItems = cartResult.rows;
+
+    // Reduce productNum by the quantity in each cart item
+    for (const item of cartItems) {
+        const updateProduct = `
+            UPDATE product SET productNum = productNum - $1
+            WHERE productID = $2 AND productNum >= $1;
+        `;
+        await client.query(updateProduct, [1, item.productid]);
+    }
       // Delete rows from the cart table for the specific user ID
       const deleteQuery = `
           DELETE FROM cart
