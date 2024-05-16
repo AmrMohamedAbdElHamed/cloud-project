@@ -34,7 +34,9 @@ th, td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
 }
-
+.but{
+    margin: 25px;
+}
 th {
     background-color: #f4f4f4;
     text-align: left;
@@ -52,6 +54,7 @@ th {
 .checkout-btn,
 .catalog_back-btn,
 .cart-btn {
+
     background-color: #333;
     color: #fff;
     border: none;

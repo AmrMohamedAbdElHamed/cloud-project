@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout Success</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <h1>Checkout Success</h1>
     </header>
     <div class="container">
         <div class="success-message">
-            <p><%= message %></p>
+            <p>
+                <%= message %>
+            </p>
         </div>
-        <form action="/catalog" method="get">
-            <div class="catalog_back">
-                <button class="catalog_back-btn">Catalog</button>
-            </div>
-        </form>
-        <form action="/checkout_to_cart" method="get">
-            <div class="cart_checkout">
-                <button class="cart-btn">Cart</button>
-            </div>
-        </form>
+        <div class="cart">
+            <form action="/catalog" method="get" class="but">
+                <div class="catalog_back">
+                    <button class="catalog_back-btn">Catalog</button>
+                </div>
+            </form>
+
+            <form action="/checkout_to_cart" method="get" class="but">
+                <div class="cart_checkout">
+                    <button class="cart-btn">Cart</button>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
+
 </html>
