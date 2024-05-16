@@ -6,9 +6,18 @@
 }
 
 body {
+    /* background-image: url(image/Galaxy_S24_Ultra.avif); */
     font-family: Arial, sans-serif;
     line-height: 1.6;
+
 }
+img{
+    width: 250px;
+    height: 220px;
+}
+
+
+
 
 .container {
     width: 80%;
@@ -61,6 +70,13 @@ button:focus {
     outline: none; 
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); 
 }
+
+.catlog-items{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
 
 .product {
     border: 1px solid #ccc;

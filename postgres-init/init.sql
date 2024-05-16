@@ -43,9 +43,10 @@ CREATE TABLE IF NOT EXISTS user_product (
 INSERT INTO user_ (username, userEmail, userPassword, userAddress, userPhone)
 VALUES ('John Doe', 'john@example.com', 'password123', '123 Main St, City, Country', '123456789');
 INSERT INTO product (productName, productPrice,productNum, productImg)
-VALUES ('Galaxy S24', 43553,10, 'Galaxy_S24.avif'),
-       ('Galaxy S24+',49373, 10,'Galaxy_S24_plus.avif'),
-       ('Galaxy S24 Ultra', 64599,10, 'Galaxy_S24_Ultra.avif');
+VALUES ('Galaxy Z Flip5', 53523,10, 'images/galaxy-z-flip5.jpg'),
+       ('Galaxy S24+',49373, 10,'images/Galaxy_S24_plus.avif'),
+       ('Galaxy S24 Ultra', 64599,10, 'images/Galaxy_S24_Ultra.avif'),
+       ('Galaxy S24', 43553,10, 'images/Galaxy_S24.avif');
 INSERT INTO cart (userID, productID)
 VALUES (1, 1),
        (1, 2);
