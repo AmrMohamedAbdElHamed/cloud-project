@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cart
+  template:
+    metadata:
+      labels:
+        app: cart
+    spec:
+      containers:
+        - name: cart
+          image: <your-cart-image>
+          ports:
+            - containerPort: 3002
+          dependsOn:
+            - name: postgres
+              condition: service_healthy
+      volumes:
+        - name: cart-volume
+          emptyDir: {}

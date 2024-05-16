@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalog
+  template:
+    metadata:
+      labels:
+        app: catalog
+    spec:
+      containers:
+        - name: catalog
+          image: <your-catalog-image>
+          ports:
+            - containerPort: 3001
+          dependsOn:
+            - name: postgres
+              condition: service_healthy
+      volumes:
+        - name: catalog-volume
+          emptyDir: {}

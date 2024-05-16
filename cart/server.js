@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const { Client } = require('pg');
 
 const app = express();
-const port = process.env.PORT || 3002;
+const port = 3002;
 let user_id
 
 // PostgreSQL database configuration
@@ -22,11 +22,13 @@ client.connect((err) => {
   }
   console.log('Connected to PostgreSQL database');
 });
+
 // functions
 function getTotal(products) {
   return products.reduce((total, product) => total + product.productprice, 0);
 }
 //--------------------------
+
 // Middleware to parse JSON bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

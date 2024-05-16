@@ -1,10 +1,9 @@
 const express = require('express');
 const { Client } = require('pg');
 const bodyParser = require('body-parser');
-const path = require('path');
-const { notDeepEqual } = require('assert');
 const app = express();
 const port = 3001;
+
 let user_id 
 // Create a PostgreSQL connection
 const client = new Client({
@@ -22,8 +21,11 @@ client.connect()
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 app.use(express.static('public'));
+
 app.set('view engine', 'ejs');
+
 // Define route to render HTML page with product data
 app.get('/Catalog', async (req, res) => {
     user_id = req.query.userId;

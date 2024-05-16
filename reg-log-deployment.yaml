@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reg-log-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reg-log
+  template:
+    metadata:
+      labels:
+        app: reg-log
+    spec:
+      containers:
+        - name: reg-log
+          image: <your-reg-log-image>
+          ports:
+            - containerPort: 3000
+          dependsOn:
+            - name: postgres
+              condition: service_healthy
+      volumes:
+        - name: reg-log-volume
+          emptyDir: {}
