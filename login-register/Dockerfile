@@ -5,7 +5,6 @@ WORKDIR /register-login
 
 # Add application files
 ADD server.js .
-ADD route.js .
 ADD package.json .
 ADD package-lock.json .
 ADD public ./public
