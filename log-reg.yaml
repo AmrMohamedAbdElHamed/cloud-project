@@ -14,14 +14,14 @@ spec:
     spec:
       containers:
         - name: reg-log
-          image: cloud-project-reg-log:latest
+          image: cloud-project_reg-log:latest
           ports:
             - containerPort: 3000
           volumeMounts:
             - name: log-reg
-              mountPath: /register-login/public
+              mountPath: /register-login/login_register_pages
         
       volumes:
         - name: log-reg
           hostPath:
-            path: ./login-register/public
+            path: ./login-register/login_register_pages

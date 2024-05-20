@@ -14,18 +14,18 @@ spec:
     spec:
       containers:
         - name: catalog
-          image: cloud-project-catalog:latest
+          image: cloud-project_catalog:latest
           ports:
             - containerPort: 3001
           volumeMounts:
             - name: catalog-pub
-              mountPath: /catalog/public
+              mountPath: /catalog/catalog_style
             - name: catalog-views
-              mountPath: /catalog/views
+              mountPath: /catalog/catalogPage
       volumes:
         - name: catalog-pub
           hostPath:
-            path: ./catalog/public
+            path: ./catalog/catalog_style
         - name: catalog-views
           hostPath:
-            path: ./catalog/views
+            path: ./catalog/catalogPage

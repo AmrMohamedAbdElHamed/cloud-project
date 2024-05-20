@@ -14,18 +14,18 @@ spec:
     spec:
       containers:
         - name: cart
-          image: cloud-project-cart:latest
+          image: cloud-project_cart:latest
           ports:
             - containerPort: 3002
           volumeMounts:
             - name: cart-pub
-              mountPath: /cart/public
+              mountPath: /cart/cartImages_style
             - name: cart-views
-              mountPath: /cart/views
+              mountPath: /cart/cartPage_checkoutPage
       volumes:
         - name: cart-pub
           hostPath:
-            path: ./cart/public
+            path: ./cart/cartImages_style
         - name: cart-views
           hostPath:
-            path: ./cart/views
+            path: ./cart/cartPage_checkoutPage
