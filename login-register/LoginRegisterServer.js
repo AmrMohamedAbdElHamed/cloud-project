@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Client } = require('pg');
+const path = require('path');
 
 
 const app = express();
@@ -28,8 +29,12 @@ client.connect((err) => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Serving static files (assuming they're in a directory named 'public')
-app.use(express.static('public'));
+// Serving static files
+app.use(express.static('login_register_pages'));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'login_register_pages', 'registerPage.html'));
+});
 
 // Route to handle user registration
 app.post('/register', (req, res) => {
@@ -42,7 +47,7 @@ app.post('/register', (req, res) => {
       return;
     }
     console.log('User registered successfully');
-    res.redirect('/login/index.html');
+    res.redirect('/login/loginPage.html');
   });
 });
 

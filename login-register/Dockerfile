@@ -4,10 +4,10 @@ FROM node
 WORKDIR /register-login
 
 # Add application files
-ADD server.js .
+ADD LoginRegisterServer.js .
 ADD package.json .
 ADD package-lock.json .
-ADD public ./public
+ADD login_register_pages ./login_register_pages
 
 RUN npm install pg
 

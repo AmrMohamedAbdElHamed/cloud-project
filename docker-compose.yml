@@ -25,7 +25,7 @@ services:
     networks:
       - mynetwork
     volumes:
-      - ./login-register/public:/register-login/public
+      - ./login-register/login_register_pages:/register-login/login_register_pages
   
   catalog:
     build: ./catalog
