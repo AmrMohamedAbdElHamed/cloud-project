@@ -38,8 +38,8 @@ services:
     networks:
       - mynetwork
     volumes:
-      - ./catalog/public:/catalog/public
-      - ./catalog/views:/catalog/views
+      - ./catalog/catalog_style:/catalog/catalog_style
+      - ./catalog/catalogPage:/catalog/catalogPage
 
   cart:
     build: ./cart

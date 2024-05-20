@@ -4,11 +4,11 @@ FROM node
 WORKDIR /catalog
 
 # Add application files
-ADD server.js .
+ADD catalogServer.js .
 ADD package.json .
 ADD package-lock.json .
-ADD public ./public
-ADD views ./views
+ADD catalog_style ./catalog_style
+ADD catalogPage ./catalogPage
 
 # Install postgres client tool using npm
 RUN npm install pg

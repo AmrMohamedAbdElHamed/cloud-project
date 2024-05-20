@@ -1,6 +1,8 @@
 const express = require('express');
 const { Client } = require('pg');
 const bodyParser = require('body-parser');
+const path = require('path');
+
 const app = express();
 const port = 3001;
 let user_id 
@@ -21,9 +23,11 @@ client.connect()
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static('public'));
+app.use(express.static('catalog_style'));
 
 app.set('view engine', 'ejs');
+
+app.set('views', path.join(__dirname, 'catalogPage'));
 
 // Define route to render HTML page with product data
 app.get('/Catalog', async (req, res) => {
@@ -32,7 +36,7 @@ app.get('/Catalog', async (req, res) => {
     try {
         const products = await client.query('SELECT * FROM product WHERE productNum > 0');
 
-        res.render('index', { products: products.rows, userId: user_id });
+        res.render('catalogPage', { products: products.rows, userId: user_id });
     } catch (error) {
         console.error('Error fetching products:', error.stack);
         res.status(500).json({ error: 'Internal Server Error' });
