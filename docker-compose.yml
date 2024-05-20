@@ -52,8 +52,8 @@ services:
     networks:
       - mynetwork
     volumes:
-      - ./cart/public:/cart/public
-      - ./cart/views:/cart/views
-      
+      - ./cart/cartImages_style:/cart/cartImages_style
+      - ./cart/cartPage_checkoutPage:/cart/cartPage_checkoutPage
+
 networks:
   mynetwork:

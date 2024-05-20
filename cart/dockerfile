@@ -2,11 +2,11 @@ FROM node
 
 WORKDIR /cart
 
-ADD server.js .
+ADD cartServer.js .
 ADD package.json .
 ADD package-lock.json .
-ADD public ./public
-ADD views ./views
+ADD cartImages_style ./cartImages_style
+ADD cartPage_checkoutPage ./cartPage_checkoutPage
 
 # Install postgres client tool using npm
 RUN npm install pg

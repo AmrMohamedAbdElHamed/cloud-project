@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Client } = require('pg');
+const path = require('path');
 
 const app = express();
 const port = 3002;
@@ -34,9 +35,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Serving static files
-app.use(express.static('public'));
+app.use(express.static('cartImages_style'));
 
 app.set('view engine', 'ejs');
+
+// Set the directory where the views are located
+app.set('views', path.join(__dirname, 'cartPage_checkoutPage'));
 
 app.get('/checkout_to_cart', (req, res) =>{
   try {
@@ -60,7 +64,7 @@ app.get('/cart', async (req, res) => {
       // Execute the query
       const { rows } = await client.query(query, [user_id]);
       // Send the products data to the client
-      res.render('index', { products: rows ,getTotal: getTotal});
+      res.render('cartPage', { products: rows ,getTotal: getTotal});
   } catch (error) {
       console.error('Error fetching products:', error.stack);
       res.status(500).json({ error: 'Internal Server Error' });
