@@ -11,38 +11,40 @@
 <body>
     <header>
         <div class="container">
-            <form action="catalog" method="post">
+            <form action="/gotocart" method="get">
                 <h1>Catalog Website</h1>
-                <nav>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Products</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
+                <li>
+                    <button type="submit">Cart</button>
+                </li>
                 </nav>
             </form>
         </div>
     </header>
-     <main>
+    <main>
         <div class="container">
             <h2>Catalog</h2>
             <div class="product-list">
-                <% products.forEach(product => { %>
+                <% products.forEach(product=> { %>
                 <section class="product">
-                    <form action="/cart" method="post">
-                        <img src="<%= product.imagePath %>" alt="<%= product.name %>">
-                        <div class="product-details">
-                            <h2><%= product.name %></h2>
-                            <p><%= product.description %></p>
-                            <p>Price: $<%= product.price %></p>
-                            <input type="hidden" name="productId" value="<%= product.productId %>">
-                            <button type="submit">Add to Cart</button>
-                        </div>
+                    <form action="/cart" method="post" class="catlog-items">
+                        
+                            <img src="<%= product.productimg %>" alt="<%= product.name %>">
+                            <div class="product-details">
+                                <h2>
+                                    <%= product.productname %>
+                                </h2>
+                                <p>Price: $<%= product.productprice %>
+                                </p>
+                                <p>Stock: <%= product.productnum %>
+                                </p>
+                                <input type="hidden" name="productId" value="<%= product.productid %>">
+                                <button type="submit">Add to Cart</button>
+                            </div>
+                            
                     </form>
                 </section>
                 <% }); %>
             </div>
-        </div>
     </main>
     <footer>
         <div class="container">

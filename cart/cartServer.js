@@ -42,6 +42,11 @@ app.set('view engine', 'ejs');
 // Set the directory where the views are located
 app.set('views', path.join(__dirname, 'cartPage_checkoutPage'));
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'cartImages_style', 'cartPage.html'));
+});
+
+
 app.get('/checkout_to_cart', (req, res) =>{
   try {
     res.redirect(`/cart?userId=${user_id}`);

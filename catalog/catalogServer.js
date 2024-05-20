@@ -29,6 +29,10 @@ app.set('view engine', 'ejs');
 
 app.set('views', path.join(__dirname, 'catalogPage'));
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'catalog_style', 'catalogPage.html'));
+});
+
 // Define route to render HTML page with product data
 app.get('/Catalog', async (req, res) => {
     user_id = req.query.userId;
