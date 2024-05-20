@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-deployment
+  name: postgres
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: postgres-app
   template:
     metadata:
       labels:
-        app: postgres
+        app: postgres-app
     spec:
       containers:
         - name: postgres
@@ -20,25 +20,16 @@ spec:
           env:
             - name: POSTGRES_PASSWORD
               value: "20201700558"
-          volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
-            - name: postgres-init
-              mountPath: /docker-entrypoint-initdb.d
           livenessProbe:
             exec:
               command:
                 - pg_isready
             initialDelaySeconds: 30
             periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 6
+          volumeMounts:
+            - name: postgres-init
+              mountPath: /docker-entrypoint-initdb.d
       volumes:
-        - name: postgres-storage
-          emptyDir: {}
         - name: postgres-init
           hostPath:
-            path: /path/to/postgres-init
-
-          
-# kubectl apply -f postgres-deployment.yml
+            path: ./postgres-init

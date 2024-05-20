@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalog-app
+  template:
+    metadata:
+      labels:
+        app: catalog-app
+    spec:
+      containers:
+        - name: catalog
+          image: cloud-project-catalog:latest
+          ports:
+            - containerPort: 3001
+          volumeMounts:
+            - name: catalog-pub
+              mountPath: /catalog/public
+            - name: catalog-views
+              mountPath: /catalog/views
+      volumes:
+        - name: catalog-pub
+          hostPath:
+            path: ./catalog/public
+        - name: catalog-views
+          hostPath:
+            path: ./catalog/views

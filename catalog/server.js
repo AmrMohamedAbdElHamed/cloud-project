@@ -3,7 +3,6 @@ const { Client } = require('pg');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3001;
-
 let user_id 
 // Create a PostgreSQL connection
 const client = new Client({

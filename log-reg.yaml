@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reg-log
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reg-log-app
+  template:
+    metadata:
+      labels:
+        app: reg-log-app
+    spec:
+      containers:
+        - name: reg-log
+          image: cloud-project-reg-log:latest
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: log-reg
+              mountPath: /register-login/public
+        
+      volumes:
+        - name: log-reg
+          hostPath:
+            path: ./login-register/public

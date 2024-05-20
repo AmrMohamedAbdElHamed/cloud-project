@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-app
+  template:
+    metadata:
+      labels:
+        app: postgres-app
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_PASSWORD
+              value: "20201700558"
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          volumeMounts:
+            - name: postgres-init
+              mountPath: /docker-entrypoint-initdb.d
+
+        - name: reg-log
+          image: cloud-project-reg-log:latest
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - name: log-reg
+              mountPath: /register-login/public
+        
+        - name: catalog
+          image: cloud-project-catalog:latest
+          ports:
+            - containerPort: 3001
+          volumeMounts:
+            - name: catalog-pub
+              mountPath: /catalog/public
+            - name: catalog-views
+              mountPath: /catalog/views
+
+        - name: cart
+          image: cloud-project-cart:latest
+          ports:
+            - containerPort: 3002
+          volumeMounts:
+            - name: cart-pub
+              mountPath: /cart/public
+            - name: cart-views
+              mountPath: /cart/views
+      volumes:
+        - name: postgres-init
+          hostPath:
+            path: ./postgres-init
+        - name: log-reg
+          hostPath:
+            path: ./login-register/public
+        - name: catalog-pub
+          hostPath:
+            path: ./catalog/public
+        - name: catalog-views
+          hostPath:
+            path: ./catalog/views
+        - name: cart-pub
+          hostPath:
+            path: ./cart/public
+        - name: cart-views
+          hostPath:
+            path: ./cart/views

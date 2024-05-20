@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cart-app
+  template:
+    metadata:
+      labels:
+        app: cart-app
+    spec:
+      containers:
+        - name: cart
+          image: cloud-project-cart:latest
+          ports:
+            - containerPort: 3002
+          volumeMounts:
+            - name: cart-pub
+              mountPath: /cart/public
+            - name: cart-views
+              mountPath: /cart/views
+      volumes:
+        - name: cart-pub
+          hostPath:
+            path: ./cart/public
+        - name: cart-views
+          hostPath:
+            path: ./cart/views
